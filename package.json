@@ -1,0 +1,34 @@
+{
+  "name": "frontend_react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@expo/webpack-config": "^0.17.2",
+    "apexcharts": "^3.36.3",
+    "d3": "^7.8.0",
+    "expo": "~47.0.8",
+    "expo-dev-client": "~2.0.1",
+    "expo-splash-screen": "~0.17.5",
+    "expo-status-bar": "~1.4.2",
+    "install": "^0.13.0",
+    "npm": "^9.2.0",
+    "react": "18.1.0",
+    "react-apexcharts": "^1.4.0",
+    "react-dom": "18.1.0",
+    "react-native": "0.70.5",
+    "react-native-chart-kit": "^6.12.0",
+    "react-native-gifted-charts": "^1.2.42",
+    "react-native-plotly": "^6.0.0",
+    "react-native-web": "~0.18.9"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9"
+  },
+  "private": true
+}

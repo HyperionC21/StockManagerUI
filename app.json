@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "frontend_react",
+    "slug": "frontend_react",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "org.name.frontendreact"
+    }
+  }
+}
