@@ -50,7 +50,7 @@ const MyLineChart = (props: propMyLineChart) => {
             },
           ],
         }}
-        verticalLabelRotation={45}
+        verticalLabelRotation={90}
         width={Dimensions.get('window').width - 16}
         transparent
         segments={10}
