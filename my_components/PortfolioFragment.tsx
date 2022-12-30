@@ -140,7 +140,7 @@ export const PortfolioFragment = () => {
         <View style={{
           marginLeft: 5,
           marginRight: 5,
-          paddingBottom: 50,
+          paddingBottom: 20,
           alignItems: 'center'
         }}>
           <SecurityFragment
