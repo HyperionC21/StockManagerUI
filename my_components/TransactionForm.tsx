@@ -2,7 +2,8 @@ import { Form, FormItem, Picker } from 'react-native-form-component';
 import { useState, useEffect, useRef } from "react";
 
 type propTypes = {
-    postURL : string
+    postURL : string,
+    cb : Function
 }
 
 export const TransactionForm = (props: propTypes) => {
@@ -25,6 +26,10 @@ export const TransactionForm = (props: propTypes) => {
     const [fx, setFx] = useState(fxInput.current);
 
     const [kind, setKind] = useState('BUY');
+
+    useEffect(() => {
+        props.cb(ticker);
+    }, [ticker]);
 
     const dataPost = () => {
         const data = {

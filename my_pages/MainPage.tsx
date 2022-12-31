@@ -19,8 +19,40 @@ export const MainPage = () => {
     const [nav, setNav] = useState(0)
     const [costBasis, setCostBasis] = useState(0)
     const [profit, setProfit] = useState(0)
+    const [profit1M, setProfit1M] = useState(0)
+    const [profit1Q, setProfit1Q] = useState(0)
+    const [profit6M, setProfit6M] = useState(0)
+    const [profit1Y, setProfit1Y] = useState(0)
 
     const dummyMetrics = [
+      {
+        metric: 'Net Asset Value',
+        value: nav
+      },
+      {
+        metric: 'Cost Basis',
+        value: costBasis
+      },
+      {
+        metric: 'Equity Return - All time',
+        value: profit
+      },
+      {
+        metric: 'Equity Return - 1M',
+        value: profit1M
+      },
+      {
+        metric: 'Equity Return - last Q',
+        value: profit1Q
+      },
+      {
+        metric: 'Equity Return - 6M',
+        value: profit6M
+      },
+      {
+        metric: 'Equity Return - 1Y',
+        value: profit1Y
+      },
       {
         metric: 'Dividend Yield (1Y)',
         value: divYield
@@ -30,16 +62,12 @@ export const MainPage = () => {
         value: divVal
       },
       {
-        metric: 'Net Asset Value (NAV)',
-        value: nav
+        metric: 'Equity % Return ',
+        value: (profit * 100 / costBasis).toFixed(2)
       },
       {
-        metric: 'Cost Basis',
-        value: costBasis
-      },
-      {
-        metric: 'Profit',
-        value: profit
+        metric: 'Equity & Dividend Return',
+        value: profit + divVal
       }
     ]
 
@@ -64,9 +92,30 @@ export const MainPage = () => {
     })).then((response) => response.json()).then((data) => setCostBasis(data.val))
 
     fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
-      period: '1Y',
+      period: '10Y',
       metric: 'profit'
     })).then((response) => response.json()).then((data) => setProfit(data.val))
+
+    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+      period: '1M',
+      metric: 'profit'
+    })).then((response) => response.json()).then((data) => setProfit1M(data.val))
+
+    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+      period: '1Q',
+      metric: 'profit'
+    })).then((response) => response.json()).then((data) => setProfit1Q(data.val))
+
+    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+      period: '6M',
+      metric: 'profit'
+    })).then((response) => response.json()).then((data) => setProfit6M(data.val))
+
+    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+      period: '1Y',
+      metric: 'profit'
+    })).then((response) => response.json()).then((data) => setProfit1Y(data.val))
+
 
     return (
       <SafeAreaView style={{flex: 1,

@@ -1,4 +1,5 @@
 import { FlatList, StyleSheet, Text, View, Dimensions, Alert, SafeAreaView, ScrollView } from 'react-native';
+import { Divider } from 'react-native-paper';
 
 type metricType = {
     metric: string,
@@ -6,7 +7,7 @@ type metricType = {
 }
 
 type propTypes = {
-    metrics: Array<metricType>
+    metrics?: Array<metricType>
 }
 
 const Item = (props: metricType) => {
@@ -22,7 +23,7 @@ const Item = (props: metricType) => {
             }}
         >
             <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, flex: 4 }}> {props.metric} </Text>
-            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20, flex: 1, paddingRight: '5%'}}> {props.value} </Text>
+            <Text style={{ color: 'black', textAlign: 'right', fontWeight: 'bold', fontSize: 20, flex: 1, paddingRight: '5%'}}> {props.value} </Text>
         </View>
     </>
 }
@@ -47,7 +48,8 @@ export const MetricsFragment = (props: propTypes) => {
                         <FlatList
                             data={props.metrics}
                             renderItem={renderItem}
-                            ItemSeparatorComponent={View}
+                            
+                            ItemSeparatorComponent={Divider}
                         />
                     </ScrollView>
                 </View>
