@@ -1,0 +1,3 @@
+[submodule "StockPortfolioManager"]
+	path = StockPortfolioManager
+	url = git@github.com:HyperionC21/StockPortfolioManager.git
