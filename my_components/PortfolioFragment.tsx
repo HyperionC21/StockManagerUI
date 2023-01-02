@@ -2,11 +2,32 @@ import { SecurityFragment } from './SecurityFragment';
 import { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Dimensions, Alert, SafeAreaView, ScrollView } from 'react-native';
 import { PieChart} from "react-native-gifted-charts";
+import DropDownPicker from 'react-native-dropdown-picker';
 
-import { renderLegend } from "../PortfolioGraphFragment";
 
-const BACKEND_URL = "http://192.168.1.6:5001/";
+import { SERVER_URL } from "../constants"
+
 const PROC_OTHER = 2;
+
+const renderLegend = (text, proc, color) => {
+  proc = (proc * 100).toFixed(2)
+  return (
+      <View style={{ flexDirection: 'row', marginBottom: 12 }}>
+          <View
+              style={{
+                  height: 18,
+                  width: 18,
+                  marginRight: 10,
+                  borderRadius: 4,
+                  backgroundColor: color || 'white',
+              }} />
+          <View style={{ flexDirection: 'column', marginBottom: 2 }}>
+            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 14 }}>{text || ''}</Text>
+            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 12 }}>{`${proc} %`}</Text>
+          </View>
+          
+      </View>);
+}
 
 export const PortfolioFragment = () => {
 
@@ -14,13 +35,25 @@ export const PortfolioFragment = () => {
     const [focusedTicker, setFocusedTicker] = useState('dummy');
     const [infoTicker, setInfoTicker] = useState({text: 'dummy', value: 0, gain: 0, gain_perc: 0})
     
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState('TICKER');
+    const [items, setItems] = useState([
+      {label: 'Ticker', value: 'TICKER'},
+      {label: 'Country', value: 'COUNTRY'},
+      {label: 'FX', value: 'FX'},
+      {label: 'Sector', value: 'SECTOR'}
+    ]);
+
+
     useEffect(() => {
       async function fetch_pie_data(proc_thresh) {
 
-        var response = await fetch(`${BACKEND_URL}composition`);
+        var response = await fetch(`${SERVER_URL}composition?`+ new URLSearchParams({
+          hue : value
+        }));
         var actualData = await response.json();
-        var tickers = actualData['TICKER'];
-        var values = actualData['TOTAL_VALUE'];
+        var tickers = actualData['LABEL'];
+        var values = actualData['VALUE'];
         var ret_ = Array();
       
         for (let key in tickers) {
@@ -57,25 +90,28 @@ export const PortfolioFragment = () => {
         ret_ind.push({
           text : "Other",
           value : total_value_other,
-          color : "#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, "0")
+          color : "#" + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, "0"),
+          proc : total_value_other / total_
         });
 
         ret_ind.sort((a, b) => b.value - a.value);
         console.log('FETCH PIE DATA')
         console.log(ret_ind);
+        console.log(actualData);
 
         setPieData(ret_ind);
 
       }
 
       fetch_pie_data(PROC_OTHER / 100);
-    }, []);
+    }, [value]);
 
     useEffect(() => {
       async function fetch_security_info() {
 
-        var response = await fetch(`${BACKEND_URL}security_info?`+ new URLSearchParams({
-          security : focusedTicker
+        var response = await fetch(`${SERVER_URL}security_info?`+ new URLSearchParams({
+          security : focusedTicker,
+          hue : value
         }));
         var data = await response.json();
         
@@ -97,7 +133,7 @@ export const PortfolioFragment = () => {
     }, [focusedTicker])
 
     return <>
-            <View
+        <View
           style={{
             borderRadius: 20,
             margin: 20,
@@ -106,13 +142,21 @@ export const PortfolioFragment = () => {
             flexDirection: 'column'
           }}>
         <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25 }}> Portfolio </Text>
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+        />
         <View
             style={{
               borderRadius: 20,
               backgroundColor: 'transparent',
               flexDirection: 'row'
             }}>
-            <View style={{padding: 20, alignItems: 'center', flexDirection: 'column'}}>
+            <View style={{padding: 20, alignItems: 'center', flexDirection: 'column', justifyContent: 'center'}}>
               <PieChart
                 data={pieData_}
                 textSize={12}
@@ -133,7 +177,7 @@ export const PortfolioFragment = () => {
                   justifyContent: 'space-evenly',
                   marginTop: 20,
                 }}>
-                {pieData_.map((obj) => renderLegend(obj.text, obj.color))}
+                {pieData_.map((obj) => renderLegend(obj.text, obj.proc, obj.color))}
             </View>
           </View>          
         </View>

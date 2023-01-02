@@ -7,8 +7,8 @@ type propTypes = {
     screenWidth: number
 }
 
+import { SERVER_URL } from "../constants"
 
-const BACKEND_URL = "http://192.168.1.6:5001/";
 
 const lineData = ['January', 'February', 'March', 'April', 'May', 'June'];
 const TIME_INTERVALS = ['1W', '1M', '1Q', '6M', '1Y', '3Y', '5Y']
@@ -142,7 +142,7 @@ export const PerformanceFragment = (props: propTypes) => {
           console.log(focusedInterval)
 
 
-          var response = await fetch(`${BACKEND_URL}performance?` + new URLSearchParams({
+          var response = await fetch(`${SERVER_URL}performance?` + new URLSearchParams({
             kind: graphToggle ? 'Percentage' : 'Absolute',
             step: step,
             default_interval: focusedInterval

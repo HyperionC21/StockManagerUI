@@ -38,7 +38,7 @@ export const MetricsFragment = (props: propTypes) => {
         <View
             style={{
                 marginBottom: 50,
-                marginTop: 50
+                marginTop: 50,
             }}
         >
             <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25 }}> Metrics </Text>

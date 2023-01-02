@@ -6,11 +6,20 @@ import { StyleSheet, Text, View, Dimensions, Alert, SafeAreaView, ScrollView } f
 import { PerformanceFragment } from "../my_components/PerformanceFragment";
 import { PortfolioFragment } from '../my_components/PortfolioFragment';
 import { MetricsFragment } from '../my_components/MetricsFragment';
+import { Divider } from 'react-native-paper';
 
 const screenWidth = Dimensions.get("window").width;
 
-const BACKEND_URL = "http://192.168.1.6:5001/";
+import { SERVER_URL } from "../constants"
 
+const MainPageDivider = () => {
+  return <Divider bold style={{
+    height: 5,
+    margin: 10,
+    borderRadius: 100,
+    backgroundColor: 'green'
+  }}/>
+}
 
 export const MainPage = () => {
 
@@ -71,47 +80,47 @@ export const MainPage = () => {
       }
     ]
 
-    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+    fetch(`${SERVER_URL}metric?` + new URLSearchParams({
       period: '1Y',
       metric: 'div_yield'
     })).then((response) => response.json()).then((data) => setDivYield(data.val * 100));
 
-    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+    fetch(`${SERVER_URL}metric?` + new URLSearchParams({
       period: '1Y',
       metric: 'div_val'
     })).then((response) => response.json()).then((data) => setDivVal(data.val))
 
-    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+    fetch(`${SERVER_URL}metric?` + new URLSearchParams({
       period: '1Y',
       metric: 'nav'
     })).then((response) => response.json()).then((data) => setNav(data.val))
 
-    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+    fetch(`${SERVER_URL}metric?` + new URLSearchParams({
       period: '1Y',
       metric: 'cost_basis'
     })).then((response) => response.json()).then((data) => setCostBasis(data.val))
 
-    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+    fetch(`${SERVER_URL}metric?` + new URLSearchParams({
       period: '10Y',
       metric: 'profit'
     })).then((response) => response.json()).then((data) => setProfit(data.val))
 
-    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+    fetch(`${SERVER_URL}metric?` + new URLSearchParams({
       period: '1M',
       metric: 'profit'
     })).then((response) => response.json()).then((data) => setProfit1M(data.val))
 
-    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+    fetch(`${SERVER_URL}metric?` + new URLSearchParams({
       period: '1Q',
       metric: 'profit'
     })).then((response) => response.json()).then((data) => setProfit1Q(data.val))
 
-    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+    fetch(`${SERVER_URL}metric?` + new URLSearchParams({
       period: '6M',
       metric: 'profit'
     })).then((response) => response.json()).then((data) => setProfit6M(data.val))
 
-    fetch(`${BACKEND_URL}metric?` + new URLSearchParams({
+    fetch(`${SERVER_URL}metric?` + new URLSearchParams({
       period: '1Y',
       metric: 'profit'
     })).then((response) => response.json()).then((data) => setProfit1Y(data.val))
@@ -125,7 +134,9 @@ export const MainPage = () => {
           height: Dimensions.get('window').height
         }}>
         <PortfolioFragment/>
+        <MainPageDivider/>
         <MetricsFragment metrics={dummyMetrics} />
+        <MainPageDivider/>
         <PerformanceFragment
           screenWidth={screenWidth}
         />

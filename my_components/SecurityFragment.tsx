@@ -72,7 +72,7 @@ export const SecurityFragment = (props: propSecurityTypes) => {
             >
                 <Text 
                 style={{
-                    fontSize: 12,
+                    fontSize: 15,
                     fontWeight: 'bold',
                     color: 'black'
                 }}>
@@ -84,7 +84,7 @@ export const SecurityFragment = (props: propSecurityTypes) => {
                     fontWeight: 'bold',
                     color: props.gain_perc > 0 ? 'green' : 'red'
                 }}>
-                {parseFloat(props.gain_perc).toFixed(2)}
+                {`${parseFloat(props.gain_perc).toFixed(2)} %`}
                 </Text>
                 <Text 
                 style={{

@@ -6,9 +6,7 @@ import { DividendForm } from "../my_components/DividendForm";
 
 import TableFragment from "../my_components/TableFragment";
 
-
-
-const POST_URL = "http://192.168.1.6:5001/"
+import { SERVER_URL } from "../constants"
 
 const ViewSwitcher = (props: { postURL : string, option: string, cb: Function}) => {
     switch(props.option){
@@ -31,9 +29,9 @@ export const FormsPage = () => {
     
     useEffect(() => {
         async function fetch_transacted_tickers(ticker){
-            var response = await fetch(`${POST_URL}last_trans?`+ new URLSearchParams({
+            var response = await fetch(`${SERVER_URL}last_trans?`+ new URLSearchParams({
                 ticker : ticker,
-                cnt : '10'
+                cnt : '5'
               }));
             var data = await response.json();
             
@@ -82,7 +80,7 @@ export const FormsPage = () => {
                     selectedValue={formOption}
                     onSelection={(item) => setFormOption(item.value.toString())}
                 />
-                <ViewSwitcher postURL={POST_URL} option={formOption} cb={setFormTicker}/>
+                <ViewSwitcher postURL={SERVER_URL} option={formOption} cb={setFormTicker}/>
                 <TableFragment header={tableHeader} rows={tableRows}/>
             </ScrollView>
         </SafeAreaView>
