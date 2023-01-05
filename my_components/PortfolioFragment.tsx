@@ -120,6 +120,7 @@ export const PortfolioFragment = () => {
         var res = {
           text : focusedTicker,
           value : data['TOTAL_VALUE'],
+          price : data['PRICE'],
           gain : data['PROFIT'],
           gain_perc : data['PROFIT%'],
           cntry: data['COUNTRY']
@@ -190,6 +191,7 @@ export const PortfolioFragment = () => {
           <SecurityFragment
             width={Dimensions.get('window').width}
             text={infoTicker['text']}
+            price={infoTicker['price']}
             value={infoTicker['value']}
             gain={infoTicker['gain']}
             gain_perc={infoTicker['gain_perc']}

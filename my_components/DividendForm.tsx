@@ -2,7 +2,8 @@ import { Form, FormItem, Picker } from 'react-native-form-component';
 import { useState, useEffect, useRef } from "react";
 
 type propTypes = {
-    postURL : string
+    postURL : string,
+    cb : Function
 }
 
 export const DividendForm = (props: propTypes) => {
@@ -17,6 +18,10 @@ export const DividendForm = (props: propTypes) => {
 
     const fxInput = useRef(0);
     const [fx, setFx] = useState(fxInput.current);
+
+    useEffect(() => {
+        props.cb(ticker);
+    }, [ticker]);
 
     const dataPost = () => {
         const data = {

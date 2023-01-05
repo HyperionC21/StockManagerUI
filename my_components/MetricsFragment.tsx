@@ -42,18 +42,14 @@ export const MetricsFragment = (props: propTypes) => {
             }}
         >
             <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25 }}> Metrics </Text>
-            <ScrollView nestedScrollEnabled={true} style={{ width: "100%" }} >
                 <View>        
-                    <ScrollView horizontal={true} style={{ width: "100%" }}>
                         <FlatList
                             data={props.metrics}
                             renderItem={renderItem}
                             
                             ItemSeparatorComponent={Divider}
                         />
-                    </ScrollView>
                 </View>
-            </ScrollView>
         </View>
     </>
 }

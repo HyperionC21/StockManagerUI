@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, Dimensions, TouchableHighlight } from 'react-na
 type propSecurityTypes = {
     width: number,
     text: string,
+    price?: number,
     value: number,
     gain: number,
     gain_perc: number,
@@ -17,7 +18,7 @@ export const SecurityFragment = (props: propSecurityTypes) => {
             flex: 1,
             flexDirection: 'row',
             width: props.width * .95,
-            borderRadius: 2,
+            borderRadius: 10,
             borderWidth: 2,
             height: props.width * .95 / 7,
             backgroundColor: 'transparent',
@@ -39,6 +40,13 @@ export const SecurityFragment = (props: propSecurityTypes) => {
                     {props.text}
                 </Text>
                 <Text style={{
+                    fontSize: 15,
+                    fontWeight: 'bold',
+                    justifyContent: 'center',
+                }}>
+                    {`${props.price && props.price.toFixed(2)}`}
+                </Text>
+                <Text style={{
                     fontSize: 12,
                     fontWeight: 'bold',
                     justifyContent: 'center',
@@ -52,7 +60,7 @@ export const SecurityFragment = (props: propSecurityTypes) => {
                 style={{
                     width: props.width * .5,
                     paddingEnd: props.width * .05,
-                    backgroundColor: 'black',
+                    backgroundColor: 'transparent',
                     borderRadius: 10,
                     height: props.width * .8 / 7,
                     flex: 6
@@ -65,16 +73,16 @@ export const SecurityFragment = (props: propSecurityTypes) => {
                     borderRadius: 10,
                     height: props.width * .8 / 7,
                     flex: 2,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'column'
+                    flexDirection: 'column',
+                    marginRight: 10
                 }}
             >
                 <Text 
                 style={{
                     fontSize: 15,
                     fontWeight: 'bold',
-                    color: 'black'
+                    color: 'black',
+                    textAlign: 'right'
                 }}>
                 {Math.round(props.value)}
                 </Text>
@@ -82,7 +90,8 @@ export const SecurityFragment = (props: propSecurityTypes) => {
                 style={{
                     fontSize: 15,
                     fontWeight: 'bold',
-                    color: props.gain_perc > 0 ? 'green' : 'red'
+                    color: props.gain_perc > 0 ? 'green' : 'red',
+                    textAlign: 'right'
                 }}>
                 {`${parseFloat(props.gain_perc).toFixed(2)} %`}
                 </Text>
@@ -90,7 +99,8 @@ export const SecurityFragment = (props: propSecurityTypes) => {
                 style={{
                     fontSize: 15,
                     fontWeight: 'bold',
-                    color: props.gain > 0 ? 'green' : 'red'
+                    color: props.gain > 0 ? 'green' : 'red',
+                    textAlign: 'right'
                 }}>
                 {Math.round(props.gain)}
                 </Text>

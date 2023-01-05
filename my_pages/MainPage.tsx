@@ -12,6 +12,11 @@ const screenWidth = Dimensions.get("window").width;
 
 import { SERVER_URL } from "../constants"
 
+
+import React, { Component } from 'react'
+
+
+
 const MainPageDivider = () => {
   return <Divider bold style={{
     height: 5,
