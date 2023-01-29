@@ -178,7 +178,7 @@ export const PerformanceFragment = (props: propTypes) => {
       }, [focusIndex, graphToggle]);
     
     return <>
-        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25 }}> Performance </Text>
+        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25, paddingBottom: 50, paddingTop: 20 }}> Performance </Text>
         <View
             style={{
                 backgroundColor: 'transparent',
@@ -205,7 +205,7 @@ export const PerformanceFragment = (props: propTypes) => {
         <MyLineChart
           labels= {lineData_.labels}
           data= {lineData_.data}
-          height={300}
+          height={500}
         >
           
         </MyLineChart>
