@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, Dimensions, Alert, SafeAreaView, ScrollView } f
 import { PieChart} from "react-native-gifted-charts";
 import DropDownPicker from 'react-native-dropdown-picker';
 
-
 import { SERVER_URL } from "../constants"
 
 const PROC_OTHER = 2;
@@ -189,6 +188,7 @@ export const PortfolioFragment = () => {
           alignItems: 'center'
         }}>
           <SecurityFragment
+            height={Dimensions.get('window').height / 10}
             width={Dimensions.get('window').width}
             text={infoTicker['text']}
             price={infoTicker['price']}

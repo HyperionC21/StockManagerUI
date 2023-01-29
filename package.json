@@ -28,6 +28,7 @@
     "react-native-dropdown-picker": "^5.4.4",
     "react-native-form-component": "^2.6.3",
     "react-native-gifted-charts": "^1.2.42",
+    "react-native-linear-gradient": "^2.6.2",
     "react-native-paper": "^5.1.2",
     "react-native-plotly": "^6.0.0",
     "react-native-web": "~0.18.9"

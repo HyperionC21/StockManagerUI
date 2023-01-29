@@ -11,7 +11,7 @@ import { SERVER_URL } from "../constants"
 
 
 const lineData = ['January', 'February', 'March', 'April', 'May', 'June'];
-const TIME_INTERVALS = ['1W', '1M', '1Q', '6M', '1Y', '3Y', '5Y']
+const TIME_INTERVALS = ['1W', '1M', '1Q', '6M', '1Y', '3Y', '5Y', 'MAX']
 
 const INTERVALS_TO_STEPS = {
   '1W' : 1,
@@ -20,7 +20,8 @@ const INTERVALS_TO_STEPS = {
   '6M' : 14,
   '1Y' : 60,
   '3Y' : 90,
-  '5Y' : 120
+  '5Y' : 120,
+  'MAX' : 180
 }
 
 type propDefaultTimeEntryTypes = {
@@ -34,10 +35,12 @@ type propDefaultTimeEntryTypes = {
 
 type propMyLineChart = {
   labels: string[],
-  data: number[]
+  data: number[],
+  height?: number,
+  width?: number
 }
 
-const MyLineChart = (props: propMyLineChart) => {
+export const MyLineChart = (props: propMyLineChart) => {
   return (
     <>
       <LineChart
@@ -51,10 +54,10 @@ const MyLineChart = (props: propMyLineChart) => {
           ],
         }}
         verticalLabelRotation={90}
-        width={Dimensions.get('window').width - 16}
+        width={props.width ? props.width : Dimensions.get('window').width - 16}
         transparent
         segments={10}
-        height={500}
+        height={props.height && props.height}
         chartConfig={{
           //backgroundColor: 'white',
           backgroundGradientFrom: 'white',
@@ -202,6 +205,7 @@ export const PerformanceFragment = (props: propTypes) => {
         <MyLineChart
           labels= {lineData_.labels}
           data= {lineData_.data}
+          height={300}
         >
           
         </MyLineChart>

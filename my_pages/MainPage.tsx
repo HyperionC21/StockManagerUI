@@ -69,7 +69,7 @@ export const MainPage = () => {
       },
       {
         metric: 'Dividend Yield (1Y)',
-        value: divYield
+        value: divYield.toFixed(2)
       },
       {
         metric: 'Dividend Value (1Y)',
