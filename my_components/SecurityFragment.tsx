@@ -14,6 +14,7 @@ type propSecurityTypes = {
     gain: number,
     gain_perc: number,
     cntry: string,
+    filter_kind: string
 }
 
 
@@ -32,7 +33,8 @@ export const SecurityFragment = (props: propSecurityTypes) => {
             kind: 'Absolute',
             step: 1,
             default_interval: '1M',
-            filters: props.text
+            filters: props.text,
+            filter_kind: props.filter_kind
           }))
           var data_ = await response.json();
   

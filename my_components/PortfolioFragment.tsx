@@ -122,7 +122,8 @@ export const PortfolioFragment = () => {
           price : data['PRICE'],
           gain : data['PROFIT'],
           gain_perc : data['PROFIT%'],
-          cntry: data['COUNTRY']
+          cntry: data['COUNTRY'],
+          filter_kind: value
         }
 
         setInfoTicker(res);
@@ -196,6 +197,7 @@ export const PortfolioFragment = () => {
             gain={infoTicker['gain']}
             gain_perc={infoTicker['gain_perc']}
             cntry={infoTicker['cntry']}
+            filter_kind={infoTicker['filter_kind']}
           />
         </View>
     </>

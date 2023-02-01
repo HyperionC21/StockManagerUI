@@ -3,8 +3,6 @@ import { Dimensions, SafeAreaView, ScrollView } from 'react-native';
 import { PerformanceFragment } from "../my_components/PerformanceFragment";
 
 
-import { SERVER_URL } from "../constants"
-
 
 const screenWidth = Dimensions.get("window").width;
 
