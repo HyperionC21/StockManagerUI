@@ -15,6 +15,7 @@ export const MetricsPage = () => {
   const [profit1Q, setProfit1Q] = useState(0)
   const [profit6M, setProfit6M] = useState(0)
   const [profit1Y, setProfit1Y] = useState(0)
+  const [profitYTD, setProfitYTD] = useState(0)
 
   const dummyMetrics = [
     {
@@ -28,6 +29,10 @@ export const MetricsPage = () => {
     {
       metric: 'Equity Return - All time',
       value: profit
+    },
+    {
+      metric: 'Equity % Return - All time',
+      value: (profit * 100 / costBasis).toFixed(2)
     },
     {
       metric: 'Equity Return - 1M',
@@ -46,19 +51,20 @@ export const MetricsPage = () => {
       value: profit1Y
     },
     {
-      metric: 'Dividend Yield (1Y)',
+      metric: 'Equity Return - YTD',
+      value: profitYTD
+    },
+    {
+      metric: 'Dividend Yield %',
       value: divYield.toFixed(2)
     },
     {
-      metric: 'Dividend Value (1Y)',
+      metric: 'Dividend Value - All time',
       value: divVal
     },
+    
     {
-      metric: 'Equity % Return ',
-      value: (profit * 100 / costBasis).toFixed(2)
-    },
-    {
-      metric: 'Equity & Dividend Return',
+      metric: 'Equity & Dividend Return - All time',
       value: profit + divVal
     }
   ]
@@ -69,7 +75,7 @@ export const MetricsPage = () => {
   })).then((response) => response.json()).then((data) => setDivYield(data.val * 100));
 
   fetch(`${SERVER_URL}metric?` + new URLSearchParams({
-    period: '1Y',
+    period: '10Y',
     metric: 'div_val'
   })).then((response) => response.json()).then((data) => setDivVal(data.val))
 
@@ -107,6 +113,11 @@ export const MetricsPage = () => {
     period: '1Y',
     metric: 'profit'
   })).then((response) => response.json()).then((data) => setProfit1Y(data.val))
+
+  fetch(`${SERVER_URL}metric?` + new URLSearchParams({
+    period: 'YTD',
+    metric: 'profit'
+  })).then((response) => response.json()).then((data) => setProfitYTD(data.val))
 
   return (
       <SafeAreaView style={{flex: 1,

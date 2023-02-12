@@ -11,13 +11,14 @@ type propTypes = {
 const BACKEND_URL = "http://192.168.1.3:5001/";
 
 const lineData = ['January', 'February', 'March', 'April', 'May', 'June'];
-const TIME_INTERVALS = ['1W', '1M', '1Q', '6M', '1Y', '3Y', '5Y', 'MAX']
+const TIME_INTERVALS = ['1W', '1M', '1Q', '6M', 'YTD', '1Y', '3Y', '5Y', 'MAX']
 
 const INTERVALS_TO_STEPS = {
   '1W' : 1,
   '1M' : 2,
   '1Q' : 7,
   '6M' : 14,
+  'YTD' : -1,
   '1Y' : 60,
   '3Y' : 90,
   '5Y' : 120,
