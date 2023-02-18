@@ -127,7 +127,7 @@ export const SecurityFragment = (props: propSecurityTypes) => {
                         {
                         data: lineData_.data,
                         strokeWidth: 3,
-                        color: () => `green`,
+                        color: () => lineData_.data.at(-1) > lineData_.data.at(0) ? 'green' : 'red',
                         },
                     ],
                     }}

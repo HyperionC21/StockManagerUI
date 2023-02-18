@@ -2,6 +2,7 @@ import { PerformancePage } from './my_pages/PerformancePage';
 import { PortfolioPage } from './my_pages/PortfolioPage';
 import { MetricsPage } from './my_pages/MetricsPage';
 import { FormsPage } from './my_pages/FormsPage';
+import { SecuritiesPage } from './my_pages/SecuritiesPage';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -26,6 +27,8 @@ export default function App() {
               iconName = 'rocket'
             } else if (route.name === 'Input') {
               iconName = 'book'
+            } else if (route.name === 'Securities') {
+              iconName = 'clipboard'
             }
 
             // You can return any component that you like here!
@@ -40,6 +43,7 @@ export default function App() {
         <Tab.Screen name="Portfolio" component={PortfolioPage} />
         <Tab.Screen name="Metrics" component={MetricsPage} />
         <Tab.Screen name="Input" component={FormsPage} />
+        <Tab.Screen name="Securities" component={SecuritiesPage} />
       </Tab.Navigator>
     </NavigationContainer>
     

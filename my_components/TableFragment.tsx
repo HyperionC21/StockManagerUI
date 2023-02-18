@@ -36,17 +36,6 @@ const TableFragment = (props: propTypes) => {
       </DataTable.Header>
       {props.rows && props.rows.map(renderRow)}
 
-      <DataTable.Pagination
-        page={page}
-        numberOfPages={3}
-        onPageChange={(page) => setPage(page)}
-        label="1-2 of 6"
-        optionsPerPage={optionsPerPage}
-        itemsPerPage={itemsPerPage}
-        setItemsPerPage={setItemsPerPage}
-        showFastPagination
-        optionsLabel={'Rows per page'}
-      />
     </DataTable>
   );
 }
