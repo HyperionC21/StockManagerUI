@@ -45,7 +45,8 @@ export const DividendForm = (props: propTypes) => {
 
     return <>
     <Form onButtonPress={() => dataPost()} style={{
-        padding:15
+        padding:15,
+        backgroundColor: "transparent"
     }}>
         <FormItem
             value={ticker}

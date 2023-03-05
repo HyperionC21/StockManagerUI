@@ -37,7 +37,7 @@ export const PortfolioFragment = () => {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('TICKER');
     const [items, setItems] = useState([
-      {label: 'Ticker', value: 'TICKER'},
+      {label: 'Ticker', value: 'TICKER' },
       {label: 'Country', value: 'COUNTRY'},
       {label: 'FX', value: 'FX'},
       {label: 'Sector', value: 'SECTOR'}
@@ -142,15 +142,30 @@ export const PortfolioFragment = () => {
             backgroundColor: 'transparent',
             flexDirection: 'column'
           }}>
-        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25 }}> Portfolio </Text>
+        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25, textAlign: "left"}}> Portfolio </Text>
         <DropDownPicker
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-        />
+                placeholder='Select Hue'
+                itemSeparator={true}
+                style={{
+                  width: Dimensions.get('window').width * .8,
+                  alignSelf: "center",
+                  marginLeft: -10,
+                  padding: 10,
+                  backgroundColor: "transparent"
+                }}
+                dropDownContainerStyle={{
+                  width: Dimensions.get('window').width * .8,
+                  borderRadius: 10,
+                  backgroundColor: '#e6e6ff',
+                }}
+                open={open}
+                value={value}
+                items={items}
+                zIndex={10}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+              />    
         <View
             style={{
               borderRadius: 20,
@@ -172,6 +187,7 @@ export const PortfolioFragment = () => {
                 textBackgroundRadius={26}
               />
             </View>
+            
             <View
                 style={{
                   flexDirection: 'column',
@@ -180,7 +196,7 @@ export const PortfolioFragment = () => {
                 }}>
                 {pieData_.map((obj) => renderLegend(obj.text, obj.proc, obj.color))}
             </View>
-          </View>          
+          </View>      
         </View>
         <View style={{
           marginLeft: 5,

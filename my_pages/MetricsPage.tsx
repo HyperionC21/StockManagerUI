@@ -11,11 +11,10 @@ export const MetricsPage = () => {
   const [nav, setNav] = useState(0)
   const [costBasis, setCostBasis] = useState(0)
   const [profit, setProfit] = useState(0)
-  const [profit1M, setProfit1M] = useState(0)
-  const [profit1Q, setProfit1Q] = useState(0)
-  const [profit6M, setProfit6M] = useState(0)
-  const [profit1Y, setProfit1Y] = useState(0)
-  const [profitYTD, setProfitYTD] = useState(0)
+  
+  const [fee, setFee] = useState(0)
+  const [annualized_profit_val_at_1Y, setAnnualizedProfitValAt1Y] = useState(0)
+  const [annualized_profit_val_at_3M, setAnnualizedProfitValAt3M] = useState(0)
 
   const dummyMetrics = [
     {
@@ -27,45 +26,36 @@ export const MetricsPage = () => {
       value: costBasis
     },
     {
-      metric: 'Equity Return - All time',
+      metric: 'Fee',
+      value: fee.toFixed(0)
+    },
+    {
+      metric: 'Equity Return',
       value: profit
     },
     {
-      metric: 'Equity % Return - All time',
+      metric: 'Dividends',
+      value: divVal
+    },
+    {
+      metric: 'Equity & Dividend Return',
+      value: profit + divVal
+    },
+    {
+      metric: 'Equity Return % ',
       value: (profit * 100 / costBasis).toFixed(2)
     },
     {
-      metric: 'Equity Return - 1M',
-      value: profit1M
-    },
-    {
-      metric: 'Equity Return - last Q',
-      value: profit1Q
-    },
-    {
-      metric: 'Equity Return - 6M',
-      value: profit6M
-    },
-    {
-      metric: 'Equity Return - 1Y',
-      value: profit1Y
-    },
-    {
-      metric: 'Equity Return - YTD',
-      value: profitYTD
-    },
-    {
-      metric: 'Dividend Yield %',
+      metric: 'Dividend Yield % @1Y',
       value: divYield.toFixed(2)
     },
     {
-      metric: 'Dividend Value - All time',
-      value: divVal
+      metric: 'Annualized Profit @1Y',
+      value: annualized_profit_val_at_1Y.toFixed(0)
     },
-    
     {
-      metric: 'Equity & Dividend Return - All time',
-      value: profit + divVal
+      metric: 'Annualized Profit @3M',
+      value: annualized_profit_val_at_3M.toFixed(0)
     }
   ]
 
@@ -95,29 +85,20 @@ export const MetricsPage = () => {
   })).then((response) => response.json()).then((data) => setProfit(data.val))
 
   fetch(`${SERVER_URL}metric?` + new URLSearchParams({
-    period: '1M',
-    metric: 'profit'
-  })).then((response) => response.json()).then((data) => setProfit1M(data.val))
+    period: '1Y',
+    metric: 'annualized_profit_period'
+  })).then((response) => response.json()).then((data) => setAnnualizedProfitValAt1Y(data.val))
 
   fetch(`${SERVER_URL}metric?` + new URLSearchParams({
-    period: '1Q',
-    metric: 'profit'
-  })).then((response) => response.json()).then((data) => setProfit1Q(data.val))
+    period: '3M',
+    metric: 'annualized_profit_period'
+  })).then((response) => response.json()).then((data) => setAnnualizedProfitValAt3M(data.val))
 
-  fetch(`${SERVER_URL}metric?` + new URLSearchParams({
-    period: '6M',
-    metric: 'profit'
-  })).then((response) => response.json()).then((data) => setProfit6M(data.val))
 
   fetch(`${SERVER_URL}metric?` + new URLSearchParams({
     period: '1Y',
-    metric: 'profit'
-  })).then((response) => response.json()).then((data) => setProfit1Y(data.val))
-
-  fetch(`${SERVER_URL}metric?` + new URLSearchParams({
-    period: 'YTD',
-    metric: 'profit'
-  })).then((response) => response.json()).then((data) => setProfitYTD(data.val))
+    metric: 'fee'
+  })).then((response) => response.json()).then((data) => setFee(data.val))
 
   return (
       <SafeAreaView style={{flex: 1,

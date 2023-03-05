@@ -108,9 +108,12 @@ export const FormsPage = () => {
             paddingTop: 10 }}>
             <ScrollView style={{
                 backgroundColor: '#e6e6ff',
+                marginTop: 20,
                 height: Dimensions.get('window').height
+                
                 }}>
                 <Picker
+                    
                     items={[
                     { label: 'TRANSACTION', value: 'TRANSACTION' },
                     { label: 'DIVIDEND', value: 'DIVIDEND' },
