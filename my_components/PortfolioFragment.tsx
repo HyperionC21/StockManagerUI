@@ -142,7 +142,6 @@ export const PortfolioFragment = () => {
             backgroundColor: 'transparent',
             flexDirection: 'column'
           }}>
-        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25, textAlign: "left"}}> Portfolio </Text>
         <DropDownPicker
                 placeholder='Select Hue'
                 itemSeparator={true}

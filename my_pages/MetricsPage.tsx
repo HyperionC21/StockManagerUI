@@ -1,4 +1,4 @@
-import { Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { Dimensions, SafeAreaView, ScrollView, Text } from 'react-native';
 import { useState } from "react";
 
 import { MetricsFragment } from '../my_components/MetricsFragment';
@@ -14,7 +14,9 @@ export const MetricsPage = () => {
   
   const [fee, setFee] = useState(0)
   const [annualized_profit_val_at_1Y, setAnnualizedProfitValAt1Y] = useState(0)
+  const [annualized_profit_perc_at_1Y, setAnnualizedProfitPercAt1Y] = useState(0)
   const [annualized_profit_val_at_3M, setAnnualizedProfitValAt3M] = useState(0)
+  const [annualized_profit_perc_at_3M, setAnnualizedProfitPercAt3M] = useState(0)
 
   const dummyMetrics = [
     {
@@ -30,7 +32,7 @@ export const MetricsPage = () => {
       value: fee.toFixed(0)
     },
     {
-      metric: 'Equity Return',
+      metric: 'Profit',
       value: profit
     },
     {
@@ -38,24 +40,32 @@ export const MetricsPage = () => {
       value: divVal
     },
     {
-      metric: 'Equity & Dividend Return',
+      metric: 'Total Return',
       value: profit + divVal
     },
     {
-      metric: 'Equity Return % ',
+      metric: 'Profit % ',
       value: (profit * 100 / costBasis).toFixed(2)
     },
     {
-      metric: 'Dividend Yield % @1Y',
+      metric: 'Dividend Yield',
       value: divYield.toFixed(2)
     },
     {
-      metric: 'Annualized Profit @1Y',
+      metric: 'Annualized Profit    @1Y',
       value: annualized_profit_val_at_1Y.toFixed(0)
     },
     {
-      metric: 'Annualized Profit @3M',
+      metric: 'Annualized Profit % @1Y',
+      value: annualized_profit_perc_at_1Y.toFixed(2)
+    },
+    {
+      metric: 'Annualized Profit   @3M',
       value: annualized_profit_val_at_3M.toFixed(0)
+    },
+    {
+      metric: 'Annualized Profit % @3M',
+      value: annualized_profit_perc_at_3M.toFixed(2)
     }
   ]
 
@@ -90,21 +100,32 @@ export const MetricsPage = () => {
   })).then((response) => response.json()).then((data) => setAnnualizedProfitValAt1Y(data.val))
 
   fetch(`${SERVER_URL}metric?` + new URLSearchParams({
+    period: '1Y',
+    metric: 'annualized_profit_perc_period'
+  })).then((response) => response.json()).then((data) => setAnnualizedProfitPercAt1Y(data.val))
+
+  fetch(`${SERVER_URL}metric?` + new URLSearchParams({
     period: '3M',
     metric: 'annualized_profit_period'
   })).then((response) => response.json()).then((data) => setAnnualizedProfitValAt3M(data.val))
 
+  fetch(`${SERVER_URL}metric?` + new URLSearchParams({
+    period: '3M',
+    metric: 'annualized_profit_perc_period'
+  })).then((response) => response.json()).then((data) => setAnnualizedProfitPercAt3M(data.val))
 
   fetch(`${SERVER_URL}metric?` + new URLSearchParams({
     period: '1Y',
     metric: 'fee'
-  })).then((response) => response.json()).then((data) => setFee(data.val))
+  })).then((response) => response.json()).then((data) => setFee(-data.val))
 
   return (
       <SafeAreaView style={{flex: 1,
-        paddingTop: 10 }}>
+        paddingTop: 10,
+        backgroundColor: '#e6e6ff' }}>
+      <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25, marginBottom: 20, paddingTop: 20 }}> Metrics </Text>
       <ScrollView style={{
-          backgroundColor: '#e6e6ff',
+          
           height: Dimensions.get('window').height
         }}>
         <MetricsFragment metrics={dummyMetrics} />

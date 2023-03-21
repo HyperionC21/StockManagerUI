@@ -37,16 +37,14 @@ export const MetricsFragment = (props: propTypes) => {
     return <>
         <View
             style={{
-                marginBottom: 50,
-                marginTop: 50,
+                marginBottom: 20,
             }}
         >
-            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25 }}> Metrics </Text>
+            
                 <View>        
                         <FlatList
                             data={props.metrics}
                             renderItem={renderItem}
-                            
                             ItemSeparatorComponent={Divider}
                         />
                 </View>

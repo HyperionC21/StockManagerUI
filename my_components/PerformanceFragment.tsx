@@ -179,7 +179,7 @@ export const PerformanceFragment = (props: propTypes) => {
       }, [focusIndex, graphToggle]);
     
     return <>
-        <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25, paddingBottom: 50, paddingTop: 20 }}> Performance </Text>
+        
         <View
             style={{
                 backgroundColor: 'transparent',

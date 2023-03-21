@@ -1,4 +1,4 @@
-import { Dimensions, SafeAreaView, ScrollView } from 'react-native';
+import { Dimensions, SafeAreaView, ScrollView, Text } from 'react-native';
 
 import { PerformanceFragment } from "../my_components/PerformanceFragment";
 
@@ -11,9 +11,11 @@ export const PerformancePage = () => {
 
     return (
       <SafeAreaView style={{flex: 1,
+        backgroundColor: '#e6e6ff',
         paddingTop: 50 }}>
+      <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25, paddingBottom: 50, paddingTop: 20 }}> Performance </Text>
       <ScrollView style={{
-          backgroundColor: '#e6e6ff',
+          
           height: Dimensions.get('window').height
         }}>
         <PerformanceFragment

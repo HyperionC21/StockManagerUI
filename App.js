@@ -36,10 +36,11 @@ export default function App() {
           },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
-          tabBarShowLabel: false
+          tabBarShowLabel: false,
+          headerShown: false
         })}
       >
-        <Tab.Screen name="Performance" component={PerformancePage} />
+        <Tab.Screen name="Performance" component={PerformancePage}  />
         <Tab.Screen name="Portfolio" component={PortfolioPage} />
         <Tab.Screen name="Metrics" component={MetricsPage} />
         <Tab.Screen name="Input" component={FormsPage} />

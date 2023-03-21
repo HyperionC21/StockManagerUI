@@ -105,13 +105,16 @@ export const FormsPage = () => {
 
     return (
         <SafeAreaView style={{flex: 1,
-            paddingTop: 10 }}>
+            paddingTop: 10,
+            backgroundColor: '#e6e6ff' }}>
+            <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25, marginBottom: 20, paddingTop: 20 }}> Input Forms </Text>
             <ScrollView style={{
-                backgroundColor: '#e6e6ff',
+                
                 marginTop: 20,
                 height: Dimensions.get('window').height
                 
                 }}>
+                
                 <Picker
                     
                     items={[

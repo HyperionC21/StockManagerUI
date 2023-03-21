@@ -1,56 +1,76 @@
-import { Dimensions, SafeAreaView, ScrollView } from 'react-native';
-import TableFragment from "../my_components/TableFragment";
+import { Dimensions, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { useState, useEffect, useRef } from "react";
+import { Chip } from 'react-native-paper';
 
 import { SERVER_URL } from "../constants"
 
+const invert = require('invert-color');
+
+var stringToColour = function(str) {
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  var colour = '#';
+  for (var i = 0; i < 3; i++) {
+    var value = (hash >> (i * 8)) & 0xFF;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
+}
+
+
+function renderChip (tickerName) {
+
+  var color = stringToColour(tickerName);
+  var revColor = invert(color, true);
+
+  return <Chip style={{
+    "marginLeft" : 5,
+    "marginBottom" : 3,
+    "backgroundColor" : color,    
+  }} onPress={() => console.log(tickerName)} selectedColor="black" 
+  textStyle={{"color" : revColor}}> {tickerName} </Chip>
+}
+
 export const SecuritiesPage = () => {
-    const [tableHeader, setTableHeader] = useState(['TICKER', 'N_SHARES', 'SECTOR', 'FX', 'COUNTRY'])
-    const [tableRows, setTableRows] = useState([]);
 
-    useEffect(() => {
-      async function fetch_portfolio_stats(){
-          var response = await fetch(`${SERVER_URL}portfolio_stats`);
-          var data = await response.json();
-          
-          var tickers = data['TICKER'];
-          var n_shares = data['N_SHARES'];
-          var sectors = data['SECTOR'];
-          var fxs = data['FX'];
-          var countries = data['COUNTRY'];
+  const [tickerList, setTickerList] = useState(['AAPL', 'FP']);
 
-          var ret_ = Array();
-      
-          for (let key in tickers) {
-              let ticker = tickers[key];
-              let n_share = n_shares[key].toFixed(2);
-              let sector = sectors[key];
-              let fx = fxs[key];
-              let cntry = countries[key];
+  useEffect(() => {
+    async function fetch_chips_data() {
 
-              var obj  = [ ticker, n_share, sector, fx, cntry ];
+      var response = await fetch(`${SERVER_URL}composition?`);
+      var actualData = await response.json();
+      var tickers = actualData['LABEL'];
+      var ret_ = Array();
+    
+      for (let key in tickers) {
+        let ticker = tickers[key];
 
-              ret_.push(obj);
-          }
-
-          console.log(data);
-          console.log(ret_);
-          setTableRows(ret_)
-
+        ret_.push(ticker);
+        
       }
 
-      fetch_portfolio_stats()
+      setTickerList(ret_);
 
-  }, [])
+    }
 
-    return (
-      <SafeAreaView style={{flex: 1,
-          paddingTop: 10 }}>
-        <ScrollView style={{
-            backgroundColor: '#e6e6ff',
-            height: Dimensions.get('window').height
-          }}>
-            <TableFragment header={tableHeader} rows={tableRows}/>
-        </ScrollView>
-      </SafeAreaView>);
+    fetch_chips_data();
+  }, []);
+
+  return (
+    <SafeAreaView style={{ backgroundColor: '#e6e6ff' }}>
+      <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 25, marginBottom: 20, paddingTop: 20 }}> Securities </Text>
+      <View style={{
+          marginTop: 20,
+          backgroundColor: '#e6e6ff',
+          height: Dimensions.get('window').height,
+          flexDirection: "row",
+          flexWrap: "wrap"
+        }}>
+        
+        {tickerList.map((tickerName) => renderChip(tickerName))}
+      </View>
+    </SafeAreaView>);
 }
