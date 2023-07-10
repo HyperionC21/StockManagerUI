@@ -17,6 +17,9 @@ export const MetricsPage = () => {
   const [annualized_profit_perc_at_1Y, setAnnualizedProfitPercAt1Y] = useState(0)
   const [annualized_profit_val_at_3M, setAnnualizedProfitValAt3M] = useState(0)
   const [annualized_profit_perc_at_3M, setAnnualizedProfitPercAt3M] = useState(0)
+  const [annualized_profit_val_at_6M, setAnnualizedProfitValAt6M] = useState(0)
+  const [annualized_profit_perc_at_6M, setAnnualizedProfitPercAt6M] = useState(0)
+  const [annualized_profit_perc, setAnnualizedProfitPerc] = useState(0)
 
   const dummyMetrics = [
     {
@@ -44,7 +47,7 @@ export const MetricsPage = () => {
       value: profit + divVal
     },
     {
-      metric: 'Profit % ',
+      metric: 'Profit %',
       value: (profit * 100 / costBasis).toFixed(2)
     },
     {
@@ -52,7 +55,11 @@ export const MetricsPage = () => {
       value: divYield.toFixed(2)
     },
     {
-      metric: 'Annualized Profit    @1Y',
+      metric: 'Annualized Profit %',
+      value: annualized_profit_perc
+    },
+    {
+      metric: 'Annualized Profit @1Y',
       value: annualized_profit_val_at_1Y.toFixed(0)
     },
     {
@@ -60,12 +67,20 @@ export const MetricsPage = () => {
       value: annualized_profit_perc_at_1Y.toFixed(2)
     },
     {
-      metric: 'Annualized Profit   @3M',
+      metric: 'Annualized Profit @3M',
       value: annualized_profit_val_at_3M.toFixed(0)
     },
     {
       metric: 'Annualized Profit % @3M',
       value: annualized_profit_perc_at_3M.toFixed(2)
+    },
+    {
+      metric: 'Annualized Profit @6M',
+      value: annualized_profit_val_at_6M.toFixed(0)
+    },
+    {
+      metric: 'Annualized Profit % @6M',
+      value: annualized_profit_perc_at_6M.toFixed(2)
     }
   ]
 
@@ -95,6 +110,11 @@ export const MetricsPage = () => {
   })).then((response) => response.json()).then((data) => setProfit(data.val))
 
   fetch(`${SERVER_URL}metric?` + new URLSearchParams({
+    period: 'ALL',
+    metric: 'annualized_profit_perc_period'
+  })).then((response) => response.json()).then((data) => setAnnualizedProfitPerc(data.val))
+
+  fetch(`${SERVER_URL}metric?` + new URLSearchParams({
     period: '1Y',
     metric: 'annualized_profit_period'
   })).then((response) => response.json()).then((data) => setAnnualizedProfitValAt1Y(data.val))
@@ -113,6 +133,16 @@ export const MetricsPage = () => {
     period: '3M',
     metric: 'annualized_profit_perc_period'
   })).then((response) => response.json()).then((data) => setAnnualizedProfitPercAt3M(data.val))
+
+  fetch(`${SERVER_URL}metric?` + new URLSearchParams({
+    period: '6M',
+    metric: 'annualized_profit_period'
+  })).then((response) => response.json()).then((data) => setAnnualizedProfitValAt6M(data.val))
+
+  fetch(`${SERVER_URL}metric?` + new URLSearchParams({
+    period: '6M',
+    metric: 'annualized_profit_perc_period'
+  })).then((response) => response.json()).then((data) => setAnnualizedProfitPercAt6M(data.val))
 
   fetch(`${SERVER_URL}metric?` + new URLSearchParams({
     period: '1Y',

@@ -61,7 +61,7 @@ const MyLineChart = (props: propMyLineChart) => {
           //backgroundColor: 'white',
           backgroundGradientFrom: 'white',
           backgroundGradientTo: '#efefef',
-          //decimalPlaces: 2,
+          decimalPlaces: 0,
           //color: (opacity = 1) => `rgba(0, 1, 0, ${opacity})`,
           color: () => `rgba(0, 0, 0, 1)`,
           style: {
