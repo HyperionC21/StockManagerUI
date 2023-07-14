@@ -58,6 +58,7 @@ export const SecuritiesPage = () => {
   const [total_div_amt, setTotalDivAmt] = useState(0);
   const [total_cost_basis_amt, setTotalCostBasisAmt] = useState(0);
   const [total_security_equity_gain_amt, setTotalSecurityEquityGainAmt] = useState(0);
+  const [total_security_equity_amt, setTotalSecurityEquityAmt] = useState(0);
 
   useEffect(() => {
     async function fetch_PE() {
@@ -131,6 +132,24 @@ export const SecuritiesPage = () => {
 
   }, [focusedTicker])
 
+  useEffect(() => {
+    async function fetch_total_security_equity_amt() {
+
+      var response = await fetch(`${SERVER_URL}metric?`+ new URLSearchParams({
+        ticker: focusedTicker,
+        metric: 'security_equity_amt'
+      }));
+      var actualData = await response.json();
+      var res = actualData['val']
+    
+  
+      setTotalSecurityEquityAmt(res)
+    }
+
+    fetch_total_security_equity_amt();
+
+  }, [focusedTicker])
+
   var metricsList = [{
     'metric_name' : 'P/E',
     'metric_val' : p_e
@@ -146,7 +165,11 @@ export const SecuritiesPage = () => {
   {
     'metric_name' : 'Equity Gain Amount',
     'metric_val' : total_security_equity_gain_amt
-  },    
+  },
+  {
+    'metric_name' : 'Equity Amount',
+    'metric_val' : total_security_equity_amt
+  },       
   ];
 
 
